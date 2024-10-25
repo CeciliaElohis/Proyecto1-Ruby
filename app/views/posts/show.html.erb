@@ -1,0 +1,9 @@
+<h2>Post</h2>
+<%= image_tag @post.image.variant(resize_to_fill: [300, 300]) if @post.image.attached? %>
+
+<br>
+<p><%= @post.description %></p>
+<div class="link">
+  <%= button_to "Destroy", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+  <%= link_to "Edit", edit_post_path(@post) %>
+</div>

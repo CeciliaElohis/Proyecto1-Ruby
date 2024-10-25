@@ -1,0 +1,17 @@
+<h2>All Posts</h2>
+<% @posts.each do |post| %>
+  <div>
+    <% if post.image.attached? %>
+      <%= image_tag post.image.variant(resize_to_fill: [300, 300]) %>
+    <% else %>
+      <p>No image available</p>
+    <% end %>
+    <br>
+    <p><%= post.description %></p>
+    <div class="link">
+      <%= button_to "Destroy", post, method: :delete, data: { confirm: "Are you sure?" } %>
+      <%= link_to "Edit", edit_post_path(post) %>
+      <%= link_to "Show", post_path(post) %>
+    </div>
+  </div>
+<% end %>
