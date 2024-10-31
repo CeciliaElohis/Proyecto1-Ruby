@@ -1,6 +1,7 @@
 <h2>New Post</h2>
 <hr>
 <%= form_with model: @post, local: true do |f| %>
+  <br>
   <%= f.label :image %>
   <%= f.file_field :image %>
   <br>

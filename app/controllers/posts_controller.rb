@@ -2,8 +2,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :destroy]
-
+ 
   # GET /posts
   def index
     @posts = Post.all
@@ -18,6 +17,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id # Asignar el usuario actual al post
+    @post.title = current_user.email
     if @post.save
       flash[:success] = "Success!"
       redirect_to post_path(@post)
@@ -62,12 +62,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def authorize_user!
-    unless @post.user_id == current_user.id
-      flash[:alert] = "No tienes permiso para realizar esta acción."
-      redirect_to posts_path
-    end
-  end
 
   def post_params
     params.require(:post).permit(:title, :content, :image, :description)
